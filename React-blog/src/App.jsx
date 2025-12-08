@@ -3,9 +3,14 @@ import './App.css'
 import User from './User'
 import Form from './Form';
 import Table from './Table';
+import Counter from './Counter';
+import Card from './Card';
 
 function App() {
   const [age, setAge] = useState(0)
+  const [count, setCount] = useState(0)
+  const [data, setData] = useState(0)
+  const[display, setDisplay] = useState(true)
   const userObject = {
     user: "abhay",
     email:"abhay@gmail.com"
@@ -16,7 +21,28 @@ function App() {
     setAge(239);
   }
 }, [age]);
+
+// const handleCounter=()=>{
+//   console.log("this is counter",{count})
+// }
+
+// const handleData=()=>{
+//   console.log("this is Data",{data})
+// }
+
+
+// useEffect(()=>{
+//   //hret
+//   handleCounter()
+//   handleData()
+// },[count, data])
   
+useEffect(() => {
+  return () => {
+    console.log("unmounted component");
+  };
+}, [display]);
+
   const colleges = ["patkar", "mithibai", "bhavans", "sathe"]
   //const age = 239;
 
@@ -97,7 +123,8 @@ function App() {
       <User userObject={userObject} age={age} name="mangal" collegeArray={colleges}/>
       
       <Form/>
-      <Table/>   
+      
+      {display?<Table/> : null }  
       <hr></hr>      
        <h2>this is nesting looping</h2>
 
@@ -118,9 +145,16 @@ function App() {
           ))}</li>
         </ul>
 
+        
         </div>
        ))}
-       
+
+       <Card/>
+
+     <button style={{margin: "5px"}} onClick={()=> setCount(count+1)}>counter</button>
+     <button onClick={()=>setData(data+1)}>data</button>
+     <Counter count={count} data={data}/>  
+     <button onClick={()=>setDisplay(!display)}>Toggle</button>
     </>
   )
 }
