@@ -1,22 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import User from './User'
 import Form from './Form';
 import Table from './Table';
 import Counter from './Counter';
 import Card from './Card';
+import Passing from './Passing';
+import UserInput from './UserInput';
 
 function App() {
   const [age, setAge] = useState(0)
   const [count, setCount] = useState(0)
   const [data, setData] = useState(0)
   const[display, setDisplay] = useState(true)
+  const userRef = useRef()
+  const inputRef = useRef(null);
+
+
   const userObject = {
     user: "abhay",
     email:"abhay@gmail.com"
   }
 
-  useEffect(() => {
+  const handleRef=()=>{
+    const user= userRef.current.value
+    console.log(alert(user))
+  }
+
+  useEffect(() => {//THIS side effect runs when age state is update as we mention in dependency array
   if (age === 0) {
     setAge(239);
   }
@@ -37,7 +48,7 @@ function App() {
 //   handleData()
 // },[count, data])
   
-useEffect(() => {
+useEffect(() => {//this function runs when display component is vanishes from UI
   return () => {
     console.log("unmounted component");
   };
@@ -116,6 +127,21 @@ useEffect(() => {
       ]
     }
   ]
+
+   const name = "aman singh"
+
+  const passing =(name)=>{
+    console.log(`this is name of passing function ${name}`)
+  }
+
+  const updateInput=()=>{//this function is used for forwardRef
+    inputRef.current.value = 10000;
+    inputRef.current.focus();
+    inputRef.current.style.color="red"
+  }
+
+ 
+
   return (
     <>
       <h1>hello aman</h1>
@@ -124,20 +150,20 @@ useEffect(() => {
       
       <Form/>
       
-      {display?<Table/> : null }  
+      {display?<Table/> : null }  {/**conditional rendering of component  */}
       <hr></hr>      
        <h2>this is nesting looping</h2>
 
        {collegeData.map((college,index)=>(
         <div style={{backgroundColor: "cyan", padding:"20px",margin:"2px", border:"2px solid"}} 
-        key="index">
+        key={index}>
         <h4>College Name is :{college.collegeName}</h4>
         <h5>College city is :{college.collegeCity}</h5>
 
         <h1>Students</h1>
         <ul>
           <li>{college.students.map((studs, index)=> (
-            <div key="index">
+            <div key={index}>
             <h3>tthe student name is: {studs.Sname}</h3>
             <h3>tthe student email is: {studs.Semail}</h3>
             <h3>tthe student phone no is is: {studs.Sphone}</h3>
@@ -155,6 +181,15 @@ useEffect(() => {
      <button onClick={()=>setData(data+1)}>data</button>
      <Counter count={count} data={data}/>  
      <button onClick={()=>setDisplay(!display)}>Toggle</button>
+     <br></br>
+     <input type='text' ref={userRef} placeholder='enter your name'/>{/**here e have seen how to reference any HTML ELEMENT with useRef */}
+     <button onClick={handleRef}>add reference</button> 
+
+     <Passing passing={passing} name={name}/>{/**here we have seen how to pass a functiom in another component */}
+     
+     {/*<input type='text' placeholder='enter information' ref={inputRef}/>*/}
+     <UserInput ref={inputRef}/>{/**it is for forwardRef */}
+     <button onClick={updateInput}>update input</button>
     </>
   )
 }
