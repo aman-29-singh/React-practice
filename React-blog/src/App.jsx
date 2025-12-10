@@ -7,6 +7,9 @@ import Counter from './Counter';
 import Card from './Card';
 import Passing from './Passing';
 import UserInput from './UserInput';
+import { useFormStatus } from "react-dom";
+
+
 
 function App() {
   const [age, setAge] = useState(0)
@@ -15,8 +18,8 @@ function App() {
   const[display, setDisplay] = useState(true)
   const userRef = useRef()
   const inputRef = useRef(null);
-
-
+  const {pending} = useFormStatus()
+  //const[pending, setPending]= useState(false) 
   const userObject = {
     user: "abhay",
     email:"abhay@gmail.com"
@@ -140,6 +143,32 @@ useEffect(() => {//this function runs when display component is vanishes from UI
     inputRef.current.style.color="red"
   }
 
+  // const handleSubmit=async ()=>{ it is for disabled button using statte means without useFormStatus
+  //   setPending(true)
+  //   await new Promise((res)=> setTimeout(res, 2000))
+  //   console.log("aman")
+  //   setPending(false)
+  // }
+
+
+  const handleFormSubmit=async()=>{
+    await new Promise((res)=> setTimeout(res, 5000)) //wait for 5 seconds api call bhi laga skte hai
+    console.log("aman singh")
+  }
+  
+  function CustomerForm(){
+    const { pending } = useFormStatus()
+    console.log(pending)
+    return (
+      <div>
+        <input type='text' placeholder='enter first named'/>
+      <br></br>
+      <input type='text' placeholder='enter last name'/>
+      <br></br>
+      <button disabled={pending}> form submit</button>
+      </div>
+    )
+  }
  
 
   return (
@@ -190,6 +219,13 @@ useEffect(() => {//this function runs when display component is vanishes from UI
      {/*<input type='text' placeholder='enter information' ref={inputRef}/>*/}
      <UserInput ref={inputRef}/>{/**it is for forwardRef */}
      <button onClick={updateInput}>update input</button>
+
+     
+   {/*  <button disabled={pending} onClick={handleSubmit}>submitt</button>{/**it is for disabled button using state */}
+     
+     <form action={handleFormSubmit}>
+      <CustomerForm/>      
+     </form>
     </>
   )
 }
