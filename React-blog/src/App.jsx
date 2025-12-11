@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { startTransition, useEffect, useRef, useState } from 'react';
 import './App.css'
 import User from './User'
 import Form from './Form';
@@ -8,7 +8,10 @@ import Card from './Card';
 import Passing from './Passing';
 import UserInput from './UserInput';
 import { useFormStatus } from "react-dom";
-
+import { useTransition } from 'react';
+import DrivedState from './DrivedState';
+import AddUser from './AddUser';
+import DisplayUser from './DisplayUser';
 
 
 function App() {
@@ -19,7 +22,30 @@ function App() {
   const userRef = useRef()
   const inputRef = useRef(null);
   const {pending} = useFormStatus()
-  //const[pending, setPending]= useState(false) 
+  //const[pending, setPending]= useState(false)
+  //const[loading, setLoading] = useState(false)
+  const[loading, startTransition] = useTransition(false)
+  /**documentation mein aisa hai const[pending, startTransition] but humne pending ki jagah 
+   * loading use kiya hai because humne pending already use kar liya tha upar useFormStatus() mein
+   */
+  const [user, setUser] = useState("")
+
+  const [user1, setUser1] = useState([
+    {name:"sam", id:"1"},
+    {name:"john", id:"2"},
+    {name:"tyrion", id:"3"}
+  ])
+
+  //NOW WE WILL SEE the objects in state
+  const[data1,setData1] = useState({
+    name:"aman",
+    address:{
+      city:"mumbai",
+      country:"india"
+    }
+  })
+
+  
   const userObject = {
     user: "abhay",
     email:"abhay@gmail.com"
@@ -166,10 +192,121 @@ useEffect(() => {//this function runs when display component is vanishes from UI
       <input type='text' placeholder='enter last name'/>
       <br></br>
       <button disabled={pending}> form submit</button>
+      {/**Note useFormStatus() hook ye kaam krta hai sirf aur sirf form hoga tabhi means
+       * agar form mein button wagera par loading hai toh kaam kr skta hai usingFormStatus() hook
+       * but agar without usingFormStatus() hook k humein sirf kisi button click par pending ya 
+       * Loading wagera dikhani hai toh iske liye hum use krte hai useTransition() hook ka    
+       */}
+
       </div>
     )
   }
+
+
+  // const handleLoading = async () => { This is my way of writing promise
+  //   setLoading(true)
+  //   await new Promise((resolve)=> setTimeout((resolve), 5000))
+  //   setLoading(false)
+  // }
+
+  // const handleLoading=async ()=>{
+  //   setLoading(true)
+  //   await new Promise((resolve)=>{
+  //      setTimeout((resolve), 5000)
+  //   })
+
+  //   setLoading(false)
+
+
+  //   {/**so iss tarah is loading effect hum sttate k saath kar sakte hai but idhar hum pehle state loading
+  //     ko true karwa rahe hai phir false karwa rahe hai so agar ye promise ya api call bohat line ka 
+  //     hai 100 150 line ka hai toh iske andar bhibohat saari problem aasakti hai
+  //       */}
+  // }
  
+  /*toh iske alawa agar humein Loading effect ko directly karna hai without using useTransition
+  toh iske liye hum kar saktte use useTransition() hook ka toh hum bina useState() hook k karenge */
+  const handleLoading=()=>{
+    
+    startTransition(async ()=> {
+      await new Promise(res=> setTimeout(res, 10000))
+    })
+    /**so here we had use useTransition() hook so here button mein disabled={loading} hai
+     * because loading ya phir pending of useTransition() ka byDefault false hota hai but jab ye
+     * logic i.e startTransition() ka function jab chalta hai toh ye true ho jati hai pending ya
+     * loading
+      */
+    }
+
+
+    const updateObject =(val)=>{
+      console.log(val)
+      /**now here object is data1 toh humein data1 object mein key are name,address 
+       * so humein data1 object mein keys ki value ko update karna hai so humlog aise update 
+       * nhi kar skte i.e setData1({name: "val"}) so aise update nhi kar skte object ko
+       * because here error aayega kyunki yahan par abb name hii key bach gya baki saari chize
+       * toh gayab hogyi like address,city, country yeh saari chize toh gayab hogyi nhi from bject data1
+       * se toh iss case k andar humlog object data1 ko update kaise kar skte hai
+       * so pehlr toh dekhenge iss data1 mein poora object hai humare pass toh pehle isse console
+       * mein print karenge
+       */
+      
+      /*console.log(data1) so here iss data1 object k andar sbkuch hai toh agar iske andar
+      humlog update karenge toh hojayega*/
+      data1.name=val //toh abb update ho jayega
+      console.log(data1)//so abb update ho jayega data1 object ka key name update ho jayega
+      /**so yeh data1 agar aise update ho jaa rha hai toh aise hii state k andar bhi update ho jayega
+       * 
+       */
+      setData1(data1) //so here yeh abhi tak update nhi hua in UI mein
+      /**so setData1(data1) se object data1 update hokar UI mein isliye nhi dikh rha
+       * because  iska reason hai ki jab aaplog ek object ki key ko directtly update karte ho n
+       * Reactjs mein toh uss state ko samaj mein hii nhi aata ki kuch update hua hai ya nhi hua hai
+       * toh iske liye ek concept aata hai deep copy and shallow  copy object ka concept
+       * toh kya hota hai ki yahan object aise update nhi hoti iske liye jo Reference haai n woh
+       * change karna padta hai abhi iska Reference same hai so spread operator ka use karne ka
+       * like setData1({...data1}) toh isse yeh ek naya object create kar dega poorane wale object 
+       * ko hatta k 
+       */
+      setData1({...data1})
+      /**isse {...data1} note - isse new object create ho jayega  so pehle wala jo object hai uska
+       * reference break ho jayega aur new object yahan par create ho jayega 
+       */
+
+      /**now hum temp variable ka use karke bhi kar skte hai like
+       * let tempData = data1
+       * tempData.name = val
+       * setData({...tempData}) aise bhi kar skte hai yeh bhi same work karega
+       */
+      
+    }
+    //now city ka naam change karke  dekhenge
+
+    const handleCity = (city)=>{
+      data1.address.city = city;
+      console.log(data1);
+      setData1({...data1,address:{...data1.address, city}})
+    }
+
+    // const updateArray=(val)=> {
+    //   user1[user1.length-1] = val//this is how we update last element of Array in console
+    //   {/**here this val is event.target.value  of input element  aur yahi event.target.value
+    //     hum iss function updateArray() mein pass kar rhe hai aur yahi value last element of array ko
+    //     mil rahi hai */}
+    //   console.log(user1);{/**yeh toh hogya console mein update now humlog dekhenge UI mein update */}
+    //   setUser1(...user1, val);
+    // }
+
+
+    const updateArray = (val) => {
+  const updated = [...user1];
+  updated[updated.length - 1] = { 
+    ...updated[updated.length - 1], 
+    name: val 
+  };
+
+  setUser1(updated);
+};
 
   return (
     <>
@@ -226,6 +363,38 @@ useEffect(() => {//this function runs when display component is vanishes from UI
      <form action={handleFormSubmit}>
       <CustomerForm/>      
      </form>
+
+     <button disabled={loading} onClick={handleLoading}>loading</button>
+     {/**isse ye button click karne par loading aayega  */}
+     {
+      loading?
+      <img style={{width: "1000px"}} src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'/>
+      
+      : null
+     }
+
+     <DrivedState/>
+     <AddUser setUser={setUser}/>{/**this is lifting state up */}
+     <DisplayUser user={user}/>
+     <hr></hr>
+     
+     <h1>Updating Objects in state</h1>
+     <input type='text' placeholder='emter a values of objects'
+     onChange={(event)=> updateObject(event.target.value)}/>
+
+     <input type='text' placeholder='update city'
+     onChange={(e)=> handleCity(e.target.value)}/>
+     <h3>name: {data1.name}</h3>
+     <h3>city: {data1.address.city}</h3>
+     <h3>country: {data1.address.country}</h3>
+
+     <input type='text' placeholder='enter user name'
+     onChange={(event)=>updateArray(event.target.value)}/>
+     {
+      user1.map((item,index)=>(
+        <li key={index}>{item.name}</li>
+      ))
+     }
     </>
   )
 }
