@@ -13,6 +13,7 @@ import DrivedState from './DrivedState';
 import AddUser from './AddUser';
 import DisplayUser from './DisplayUser';
 import UseAction from './UseAction';
+import UseForm from './UseForm';
 
 
 function App() {
@@ -408,6 +409,9 @@ useEffect(() => {//this function runs when display component is vanishes from UI
      }
 
      <UseAction/>
+     <hr></hr>
+     <UseForm/>
+     <UseForm/>
     </>
   )
 }
