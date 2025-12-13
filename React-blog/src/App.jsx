@@ -14,6 +14,8 @@ import AddUser from './AddUser';
 import DisplayUser from './DisplayUser';
 import UseAction from './UseAction';
 import UseForm from './UseForm';
+import College from './College';
+import { SubjectContext } from './SubjectContext';
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
    * loading use kiya hai because humne pending already use kar liya tha upar useFormStatus() mein
    */
   const [user, setUser] = useState("")
+  const [subject, setSubject] = useState("")
 
   const [user1, setUser1] = useState([
     {name:"sam", id:"1"},
@@ -320,6 +323,10 @@ useEffect(() => {//this function runs when display component is vanishes from UI
   setUser1(updated);
 };
 
+const handleSubject =()=> {
+  
+}
+
   return (
     <>
       <h1>hello aman</h1>
@@ -412,6 +419,20 @@ useEffect(() => {//this function runs when display component is vanishes from UI
      <hr></hr>
      <UseForm/>
      <UseForm/>
+
+
+     <div style={{backgroundColor:"yellow", padding:"10px,", margin:"10px"}}>
+      <select onChange={(event)=> setSubject(event.target.value)}>
+        <option value="physics">Physics</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="biology">BioLogy</option>
+      </select>
+      <button onClick={()=> setSubject("")}>clear value</button>
+      <SubjectContext value={subject}>
+      <h1>Context Api</h1>
+      <College/>  
+      </SubjectContext >
+     </div>
     </>
   )
 }
