@@ -1,0 +1,29 @@
+{
+    "users": [
+        {
+            "name": "Aman",
+            "id": "1",
+            "email":"amansingh@gmail.com"
+        },
+        {
+            "name": "sudesh",
+            "id": "2",
+            "email":"sudeshyadav@gmail.com"
+        },
+        {
+            "name": "farhan",
+            "id": "3",
+            "email":"farhanSolanki@gmail.com"
+        },
+        {
+            "name": "pranit",
+            "id": "4",
+            "email":"pranitshinde@gmail.com"
+        },
+        {
+            "name": "pratik",
+            "id": "4",
+            "email":"pratik@gmail.com"
+        }
+    ]
+}
