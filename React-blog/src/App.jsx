@@ -34,6 +34,7 @@ function App() {
    */
   const [user, setUser] = useState("")
   const [subject, setSubject] = useState("")
+  const [apidata, setApiData] = useState([]);
 
   const [user1, setUser1] = useState([
     {name:"sam", id:"1"},
@@ -323,10 +324,23 @@ useEffect(() => {//this function runs when display component is vanishes from UI
   setUser1(updated);
 };
 
-const handleSubject =()=> {
+// const handleSubject =()=> {
   
-}
+// }
 
+useEffect(() => {
+  getUsers()//ye isse 1 time chalega because of [] this dependency 
+}, [])
+
+
+async function getUsers(){
+  const url = "https://dummyjson.com/users";
+  //const response = await fetch(url);//here const kiye toh next line mein initialize nhi kar sakte isliye let use karneka
+  let response = await fetch(url);
+  response = await response.json()
+  console.log(response);
+  setApiData(response.users)//yes users key mein array of object hai toh isko render krne k liye map ka use krnge
+}
   return (
     <>
       <h1>hello aman</h1>
@@ -433,6 +447,22 @@ const handleSubject =()=> {
       <College/>  
       </SubjectContext >
      </div>
+
+     <h1>Api data here</h1>
+     <h3>api data is:</h3>
+     {
+      apidata.map((data)=> (
+        <ul style={{border:"solid", padding:"10px", backgroundColor:"skyblue", display:"flex",
+          justifyContent:"space-around", margin:"0"
+        }}>
+          <li>{data.firstName}</li>
+          <li>{data.lastName}</li>
+          <li>{data.username}</li>
+          <li>{data.weight}</li>
+          <li>{data.eyeColor}</li>
+        </ul>
+      ))
+     }
     </>
   )
 }
