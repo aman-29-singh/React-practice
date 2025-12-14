@@ -17,7 +17,10 @@ import UseForm from './UseForm';
 import College from './College';
 import { SubjectContext } from './SubjectContext';
 import UserListing from './UserListing';
-
+import { Route, Routes } from "react-router";
+import { NavLink } from 'react-router';
+import UserAdd from './UserAdd';
+import MyUserData from './MyUserData';
 
 function App() {
   const [age, setAge] = useState(0)
@@ -335,8 +338,8 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    getUsers()//ye isse 1 time chalega because of [] this dependency
-    //getUsersdata()
+    //getUsers()//ye isse 1 time chalega because of [] this dependency
+    getUsersdata()
 
 
   }, [])
@@ -368,12 +371,12 @@ function App() {
     /**State updates in React happen after the function finishes and the component re-renders */
   }
 
- /**to solve this issue console.log(userdata) does not show we have to use another 
-  * useEffect means this below one useEffect
-  */
+  /**to solve this issue console.log(userdata) does not show we have to use another 
+   * useEffect means this below one useEffect
+   */
   useEffect(() => {
-  console.log(userdata);
-}, [userdata]);
+    console.log(userdata);
+  }, [userdata]);
 
   return (
     <>
@@ -484,7 +487,7 @@ function App() {
 
       <h1>Api data here</h1>
       <h3>api data is:</h3>
-       {/* {
+      {/* {
       apidata && apidata.map((data)=> (
         <ul style={{border:"solid", padding:"10px", backgroundColor:"skyblue", display:"flex",
           justifyContent:"space-around", margin:"0"
@@ -498,21 +501,38 @@ function App() {
       ))
      }  */}
 
+     <ul>
+      <li><NavLink to="/listing">user-listing</NavLink></li>
+      <li><NavLink to="/add-user">user-Add</NavLink></li>
+     </ul>
+     
+      
 
-    
-     <UserListing apidata={apidata} loading1={loading1}/> 
 
-      <h1>user data from json server</h1>
+      <Routes>
+        {/*<Route index element={<StepOne />} />*/}
+        <Route path="/listing" element={<UserListing apidata={apidata} loading1={loading1} />} />
+        {/**props idhar Route mein hii send kar diya <UserListing/> ka i.e apidata and loading1 ka
+         * props 
+         */}
+        <Route path="/add-user" element={<UserAdd/>} />
+      </Routes>
+      
+      
+      {/*<UserListing apidata={apidata} loading1={loading1} />*/}
+
+      <MyUserData userdata={userdata}/>
+      {/* <h1>user data from json server</h1>
 
       {
         userdata && userdata.map((item) => (
           <ul>
             <li>{item.name}</li>
-            <li>{item.name}</li>
-            <li>{item.name}</li>
+            <li>{item.age}</li>
+            <li>{item.email}</li>
           </ul>
         ))
-      }
+      } */}
     </>
   )
 }

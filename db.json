@@ -1,29 +1,52 @@
 {
-    "users": [
-        {
-            "name": "Aman",
-            "id": "1",
-            "email":"amansingh@gmail.com"
-        },
-        {
-            "name": "sudesh",
-            "id": "2",
-            "email":"sudeshyadav@gmail.com"
-        },
-        {
-            "name": "farhan",
-            "id": "3",
-            "email":"farhanSolanki@gmail.com"
-        },
-        {
-            "name": "pranit",
-            "id": "4",
-            "email":"pranitshinde@gmail.com"
-        },
-        {
-            "name": "pratik",
-            "id": "4",
-            "email":"pratik@gmail.com"
-        }
-    ]
+  "users": [
+    {
+      "name": "Aman",
+      "id": "1",
+      "email": "amansingh@gmail.com",
+      "age": "33"
+    },
+    {
+      "name": "sudesh",
+      "id": "2",
+      "age": "33",
+      "email": "sudeshyadav@gmail.com"
+    },
+    {
+      "name": "farhan",
+      "id": "3",
+      "age": "33",
+      "email": "farhanSolanki@gmail.com"
+    },
+    {
+      "name": "pranit",
+      "id": "4",
+      "age": "33",
+      "email": "pranitshinde@gmail.com"
+    },
+    {
+      "name": "pratik",
+      "id": "4",
+      "age": "33",
+      "email": "pratik@gmail.com"
+    },
+    {
+      "id": "6c80",
+      "name": "mohit",
+      "age": "45",
+      "email": "mohit@gmail.com"
+    },
+    {
+      "id": "6b23",
+      "name": "aayush",
+      "age": "67",
+      "email": "ayush@gmail.com"
+    },
+    {
+      "id": "7025",
+      "name": "prince pal",
+      "age": "43",
+      "email": "prince@gmail.com"
+    }
+  ]
 }
