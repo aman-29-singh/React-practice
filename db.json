@@ -19,34 +19,22 @@
       "email": "farhanSolanki@gmail.com"
     },
     {
-      "name": "pranit",
-      "id": "4",
-      "age": "33",
-      "email": "pranitshinde@gmail.com"
-    },
-    {
-      "name": "pratik",
-      "id": "4",
-      "age": "33",
-      "email": "pratik@gmail.com"
-    },
-    {
       "id": "6c80",
       "name": "mohit",
       "age": "45",
       "email": "mohit@gmail.com"
     },
     {
-      "id": "6b23",
-      "name": "aayush",
-      "age": "67",
-      "email": "ayush@gmail.com"
+      "id": "e8ee",
+      "name": "prince pal",
+      "age": "23",
+      "email": "prince@gmail.com"
     },
     {
-      "id": "7025",
-      "name": "prince pal",
-      "age": "43",
-      "email": "prince@gmail.com"
+      "id": "be90",
+      "name": "ankush yadav",
+      "age": "35",
+      "email": "ankush2gmail.com"
     }
   ]
 }

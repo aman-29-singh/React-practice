@@ -515,13 +515,13 @@ function App() {
         {/**props idhar Route mein hii send kar diya <UserListing/> ka i.e apidata and loading1 ka
          * props 
          */}
-        <Route path="/add-user" element={<UserAdd/>} />
+        <Route path="/add-user" element={<UserAdd getUsersdata={getUsersdata}/>} />
       </Routes>
       
       
       {/*<UserListing apidata={apidata} loading1={loading1} />*/}
 
-      <MyUserData userdata={userdata}/>
+      <MyUserData userdata={userdata} getUsersdata={getUsersdata}/>
       {/* <h1>user data from json server</h1>
 
       {
