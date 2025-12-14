@@ -16,6 +16,7 @@ import UseAction from './UseAction';
 import UseForm from './UseForm';
 import College from './College';
 import { SubjectContext } from './SubjectContext';
+import UserListing from './UserListing';
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
   const [subject, setSubject] = useState("")
   const [apidata, setApiData] = useState([]);
   const [userdata, setUserData] = useState([]);
+  const [loading1, setLoading] = useState(false)//loading by default false hai
+  //ye loading1 yeh api call k time par loading1 ko true karna hai
+  //phir jaise hii api call se data aajayega waise hii setLoading ko false karna hai
 
   const [user1, setUser1] = useState([
     { name: "sam", id: "1" },
@@ -330,8 +334,11 @@ function App() {
   // }
 
   useEffect(() => {
-    //getUsers()//ye isse 1 time chalega because of [] this dependency
-    getUsersdata()
+    setLoading(true)
+    getUsers()//ye isse 1 time chalega because of [] this dependency
+    //getUsersdata()
+
+
   }, [])
 
 
@@ -342,6 +349,7 @@ function App() {
     response = await response.json()
     console.log(response);
     setApiData(response.users)//yes users key mein array of object hai toh isko render krne k liye map ka use krnge
+    setLoading(false)//means api call ho jane k baad iss Loading ko false kar denge 
   }
 
 
@@ -476,7 +484,7 @@ function App() {
 
       <h1>Api data here</h1>
       <h3>api data is:</h3>
-       {
+       {/* {
       apidata && apidata.map((data)=> (
         <ul style={{border:"solid", padding:"10px", backgroundColor:"skyblue", display:"flex",
           justifyContent:"space-around", margin:"0"
@@ -488,9 +496,11 @@ function App() {
           <li>{data.eyeColor}</li>
         </ul>
       ))
-     } 
+     }  */}
 
-      
+
+    
+     <UserListing apidata={apidata} loading1={loading1}/> 
 
       <h1>user data from json server</h1>
 
