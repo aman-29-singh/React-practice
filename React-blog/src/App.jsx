@@ -21,6 +21,7 @@ import { Route, Routes } from "react-router";
 import { NavLink } from 'react-router';
 import UserAdd from './UserAdd';
 import MyUserData from './MyUserData';
+import UserEdit from './UserEdit';
 
 function App() {
   const [age, setAge] = useState(0)
@@ -516,6 +517,7 @@ function App() {
          * props 
          */}
         <Route path="/add-user" element={<UserAdd getUsersdata={getUsersdata}/>} />
+        <Route path="/edit-user/:id" element={<UserEdit getUsersdata={getUsersdata}/>} />
       </Routes>
       
       

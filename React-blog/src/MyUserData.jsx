@@ -1,4 +1,9 @@
+import { Navigate, useNavigate } from "react-router";
+
+
 function MyUserData({userdata, loading1, getUsersdata}){
+
+   const navigate = useNavigate();
 
     const url = "http://localhost:3000/users"
 
@@ -18,6 +23,11 @@ function MyUserData({userdata, loading1, getUsersdata}){
         agar ye function getUsersdata() ko idhar call nhi karenge toh deleteApi chalne k baad id ye database
         se toh delete ho jayegi but ye id ka data UI mein dikhega phir refresh karne par UI se delete hoga 
         so iske liye ye function getUsersdata() ko call karte hai   */}
+    }
+
+    const updateUser= (id)=> {
+      console.log(id)
+      navigate("/edit-user/"+ id)
     }
 
     return(
@@ -46,6 +56,8 @@ function MyUserData({userdata, loading1, getUsersdata}){
             <li>{item.email}</li>
             <button onClick={()=>{deleteUser(item.id)}}>Delete</button>
             {/**ye Delete button par click karne se delete ki api call hogi */}
+
+            <button onClick={()=> {updateUser(item.id)}}>update</button>
           </ul>
         )) :  <h1>Loading Datta ....</h1>
 
