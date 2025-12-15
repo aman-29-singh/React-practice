@@ -7,6 +7,7 @@ function UserEdit({getUsersdata}){
     const [name, setName] = useState('')
     const [age, setAge] = useState('')
     const [email, setEmail] = useState('')
+    const url = "http://localhost:3000/users/"+ id;
 
     console.log("user ID in UserEdit page is :", id)
 
@@ -18,7 +19,7 @@ function UserEdit({getUsersdata}){
 
     const getUserFromApi= async ()=>{
         //this function help to populate the existing data in Edit page using api
-        const url = "http://localhost:3000/users/"+ id;
+        // const url = "http://localhost:3000/users/"+ id;
         console.log(url)
         //yahi Api url se hum individual id k data ko input field k andar populate karenge
         let response = await fetch(url)
@@ -29,6 +30,23 @@ function UserEdit({getUsersdata}){
         setAge(response.age)
         setEmail(response.email)
         //abb ye teeno state ki value input field mein insert karni hai
+    }
+
+    const updateUserData=async ()=>{
+        console.log(name,age,email);
+        let response = await fetch(url,
+            {
+                method:"put",
+                body:JSON.stringify({name,email,age})//yeh object ko string mein convert karega JSON.stringify
+            }
+        )
+        response = await response.json()
+        if(response){
+            setName(response.name)
+            setEmail(response.email)
+            setAge(response.age)
+        }
+
     }
 
     
@@ -50,7 +68,7 @@ function UserEdit({getUsersdata}){
             <input type="text" value={email} onChange={(event)=> setEmail(event.target.value)}
              placeholder="user email"/>
             <br></br>
-            <button>Update user</button> 
+            <button onClick={updateUserData}>Update user</button> 
         </div>
     )
 }
