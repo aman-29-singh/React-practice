@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "name": "Aman",
-      "id": "1",
-      "email": "amansingh@gmail.com",
-      "age": "33"
-    },
-    {
       "name": "sudesh",
       "id": "2",
       "age": "33",

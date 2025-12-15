@@ -517,7 +517,7 @@ function App() {
          * props 
          */}
         <Route path="/add-user" element={<UserAdd getUsersdata={getUsersdata}/>} />
-        <Route path="/edit-user/:id" element={<UserEdit getUsersdata={getUsersdata}/>} />
+        <Route path="/edit-user/:id" element={<UserEdit getUsersdata={getUsersdata} />} />
       </Routes>
       
       
