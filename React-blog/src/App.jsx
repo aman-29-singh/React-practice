@@ -22,6 +22,7 @@ import { NavLink } from 'react-router';
 import UserAdd from './UserAdd';
 import MyUserData from './MyUserData';
 import UserEdit from './UserEdit';
+import FormValidation from './FormValidation';
 
 function App() {
   const [age, setAge] = useState(0)
@@ -535,6 +536,7 @@ function App() {
           </ul>
         ))
       } */}
+      <FormValidation/>
     </>
   )
 }
