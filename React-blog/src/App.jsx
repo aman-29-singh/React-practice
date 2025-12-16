@@ -23,6 +23,7 @@ import UserAdd from './UserAdd';
 import MyUserData from './MyUserData';
 import UserEdit from './UserEdit';
 import FormValidation from './FormValidation';
+import UseReducer from './UseReducer';
 
 function App() {
   const [age, setAge] = useState(0)
@@ -537,6 +538,8 @@ function App() {
         ))
       } */}
       <FormValidation/>
+      <hr></hr>
+      <UseReducer/>
     </>
   )
 }
