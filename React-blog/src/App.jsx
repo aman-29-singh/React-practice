@@ -25,6 +25,8 @@ import UserEdit from './UserEdit';
 import FormValidation from './FormValidation';
 import UseReducer from './UseReducer';
 import HookForm from './HookForm';
+import Page1 from './Page1';
+import Page2 from './Page2';
 
 function App() {
   const [age, setAge] = useState(0)
@@ -543,6 +545,8 @@ function App() {
       <UseReducer/>
       <hr></hr>
       <HookForm/>
+      <Page1/>
+      <Page2/>
     </>
   )
 }
